@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useMemo } from "react";
 import expensiveOperation from "../function.js";
 import "../styles/App.css";
 
@@ -9,8 +8,13 @@ const App = () => {
 
 const OptimizeTheOperation = () => {
   const [number, setNumber] = useState(1);
-  const array = expensiveOperation(number);
-  const submitHandler = (event) => {};
+  const array = useMemo(() => expensiveOperation(number), [number]);
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    setNumber(parseInt(event.target.num.value, 10));
+  };
+
   return (
     <div>
       Enter the number:
